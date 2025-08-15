@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 @Data
 @Entity
@@ -20,10 +21,11 @@ public class Flight {
     String destinationAirport;
     String flightType;
     int totalTime;
-   LocalDate boardingTime; //time when passengers needs to be in airport
+    LocalDate boardingTime; //time when passengers needs to be in airport
     int boardingMinutes;
-   LocalDate departureTime;
-   LocalDate arrivalTime;
-
-   Boolean isConnecting; //
+    LocalDate departureTime;
+    LocalDate arrivalTime;
+    Boolean isConnecting; //
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 }
