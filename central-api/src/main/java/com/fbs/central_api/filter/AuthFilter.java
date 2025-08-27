@@ -33,22 +33,29 @@ public class AuthFilter extends OncePerRequestFilter {
 
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String bearerToken = request.getHeader("Authorization");
-        if(bearerToken != null && bearerToken.startsWith("Bearer ")){
+        
+        if(bearerToken != null && bearerToken.startsWith("Bearer ")) {
             String token = bearerToken.substring(7);
             // We got the token now we need to validate that this token is a genuine token or not.
-            boolean isValid = userService.validateToken(token);
-            if(isValid == false){
-                // I am not going to set any kind of authentication and i will return from here itself
-                // before filtering if i am not setting any kind of authetication that
-                // means i am rejecting the reuquest
-                filterChain.doFilter(request, response);
+            try {
+                boolean isValid = userService.validateToken(token);
+                if (!isValid) {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
+                String payload = authUtility.decryptJwtToken(token);
+                UsernamePasswordAuthenticationToken authenticationToken =
+                        new UsernamePasswordAuthenticationToken(payload, null, Collections.emptyList());
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
+            catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
-            String payload = authUtility.decryptJwtToken(token);
-            UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(payload, null, Collections.emptyList());
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
-        filterChain.doFilter(request, response); // If you are not setting up username and password authenthication that means you are rejecting token
+        
+        // Always call filterChain.doFilter to continue the request processing
+        // Spring Security will handle authorization based on the SecurityFilterChain configuration
+        filterChain.doFilter(request, response);
     }
 }
