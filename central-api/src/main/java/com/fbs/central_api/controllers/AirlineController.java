@@ -9,6 +9,7 @@ import com.fbs.central_api.models.Airline;
 import com.fbs.central_api.models.Flight;
 import com.fbs.central_api.services.AircraftService;
 import com.fbs.central_api.services.AirlineService;
+import com.fbs.central_api.services.FlightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +24,13 @@ import java.util.UUID;
 public class AirlineController {
     AirlineService airlineService;
     AircraftService aircraftService;
+    FlightService flightService;
 
     @Autowired
-    public AirlineController(AirlineService airlineService, AircraftService aircraftService){
+    public AirlineController(AirlineService airlineService, AircraftService aircraftService, FlightService flightService){
         this.airlineService = airlineService;
         this.aircraftService=aircraftService;
+        this.flightService=flightService;
     }
     /*
    This method will get called when this particular /api/v1/central/airline/register will get triggered

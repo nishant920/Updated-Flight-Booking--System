@@ -13,7 +13,9 @@ This flight seat mapping model will only be used for non connecting flights
 @Entity
 @Table(name = "flightseatmapping")
 public class FlightSeatMapping extends SeatMapping {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    UUID id;
     String className;
     String range; // 1-20
     int basePrice;

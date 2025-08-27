@@ -64,4 +64,9 @@ public class FlightService{
         // Mail -> We need to mail to the flight Admin that your requested flight got created inside the system.
         return flight;
     }
+
+    public Object searchFlight(String sourceAirport, String destinationAirport,
+                               String localDateTime){
+        return dbApiConnector.callSearchFlightEndpoint(sourceAirport, destinationAirport, localDateTime.toString());
+    }
 }

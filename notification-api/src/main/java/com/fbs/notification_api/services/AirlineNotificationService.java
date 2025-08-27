@@ -63,3 +63,4 @@ public class AirlineNotificationService {
         javaMailSender.send(mimeMessage);
     }
 }
+//added some changes

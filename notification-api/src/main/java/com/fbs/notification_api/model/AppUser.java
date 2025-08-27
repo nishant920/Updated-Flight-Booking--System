@@ -22,3 +22,4 @@ public class AppUser {
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
 }
+//some changes

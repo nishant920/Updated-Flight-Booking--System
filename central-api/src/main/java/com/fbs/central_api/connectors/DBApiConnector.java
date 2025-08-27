@@ -127,7 +127,7 @@ public class DBApiConnector {
     }
 
     public FlightSeatMapping callCreateFlightSeatMapping(FlightSeatMapping flightSeatMapping){
-        String url = dbApiBaseUrl + "/seatmapping/create";
+        String url = dbApiBaseUrl + "/create";
         RequestEntity request = RequestEntity.post(url).body(flightSeatMapping);
         ResponseEntity<FlightSeatMapping> response = restTemplate.exchange(url, HttpMethod.POST, request, FlightSeatMapping.class);
         return response.getBody();
@@ -137,5 +137,19 @@ public class DBApiConnector {
         RequestEntity request = RequestEntity.post(url).body(subFlight);
         ResponseEntity<SubFlight> response = restTemplate.exchange(url, HttpMethod.POST, request, SubFlight.class);
         return response.getBody();
+    }
+
+    public Object callSearchFlightEndpoint(String sourceAirport,
+                                           String destinationAirport,
+                                           String dateTime){
+
+        sourceAirport = sourceAirport.replace( ' ', '+');
+        destinationAirport = destinationAirport.replace(' ','+');
+        dateTime=dateTime.replace(' ','+');
+        String url = dbApiBaseUrl + "/flight/search?" + "sourceAirport="+sourceAirport+"&" + "destinationAirport=" + destinationAirport +"&" + "dateTime=" + dateTime;
+        log.info(url);
+        RequestEntity request = RequestEntity.get(url).build();
+        ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.GET, request, Object.class);
+        return resp.getBody();
     }
 }
