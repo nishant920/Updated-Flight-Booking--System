@@ -32,7 +32,9 @@ public class AuthConfiguration {
                 .csrf(csrf -> csrf.disable()) // updated syntax
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/api/v1/central/user/login"
+                                "/api/v1/central/user/login",
+                                "/api/v1/central/airline/request/accept/**",
+                                "/api/v1/central/airline/request/reject/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

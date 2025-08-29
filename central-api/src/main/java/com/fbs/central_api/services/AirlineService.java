@@ -77,7 +77,7 @@ public class AirlineService {
         airline = updateAirlineDetails(airline);
         log.info("airlineId " + airline);
 
-        AppUser airlineAdmin = new AppUser();
+        AppUser airlineAdmin = airline.getAdmin();
         airlineAdmin.setStatus(UserStatus.ACTIVE.toString());
         airlineAdmin.setUpdatedAt(LocalDateTime.now());
         userService.updateUserDetails(airlineAdmin);

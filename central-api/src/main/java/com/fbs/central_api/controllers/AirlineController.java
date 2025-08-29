@@ -48,16 +48,30 @@ public class AirlineController {
     }
 
     @GetMapping("/request/accept/{airlineId}")
-    public void acceptAirlineRequest(@PathVariable UUID airlineId){
+    public ResponseEntity<String> acceptAirlineRequest(@PathVariable UUID airlineId){
         log.info("airlineId : " + airlineId.toString());
-        // we will be calling our airlineService to change the status of airline and airline admin to active
-        airlineService.acceptAirline(airlineId);
+        try {
+            // we will be calling our airlineService to change the status of airline and airline admin to active
+            airlineService.acceptAirline(airlineId);
+            return ResponseEntity.ok("<html><body><h2>Airline Registration Approved Successfully!</h2><p>The airline request has been accepted and the airline is now active.</p></body></html>");
+        } catch (Exception e) {
+            log.error("Error accepting airline request: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("<html><body><h2>Error</h2><p>Failed to accept airline request. Please try again.</p></body></html>");
+        }
     }
 
     @GetMapping("/request/reject/{airlineId}")
-    public void rejectAirlineRequest(@PathVariable UUID airlineId){
+    public ResponseEntity<String> rejectAirlineRequest(@PathVariable UUID airlineId){
         log.info("Reject Airline function: " + airlineId.toString());
-        airlineService.rejectAirlineRequest(airlineId);
+        try {
+            airlineService.rejectAirlineRequest(airlineId);
+            return ResponseEntity.ok("<html><body><h2>Airline Registration Rejected</h2><p>The airline request has been rejected successfully.</p></body></html>");
+        } catch (Exception e) {
+            log.error("Error rejecting airline request: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("<html><body><h2>Error</h2><p>Failed to reject airline request. Please try again.</p></body></html>");
+        }
     }
 
     @PostMapping("/aircraft/register")
