@@ -21,10 +21,10 @@ public class Flight {
     String destinationAirport;
     String flightType;
     int totalTime;
-    LocalDate boardingTime; //time when passengers needs to be in airport
+    LocalDateTime boardingTime; //time when passengers needs to be in airport
     int boardingMinutes;
-    LocalDate departureTime;
-    LocalDate arrivalTime;
+    LocalDateTime departureTime;
+    LocalDateTime arrivalTime;
     Boolean isConnecting; //
     LocalDateTime createdAt;
     LocalDateTime updatedAt;

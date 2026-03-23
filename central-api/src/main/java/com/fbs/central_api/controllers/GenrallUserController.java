@@ -29,5 +29,4 @@ public class GenrallUserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
     }
-
 }

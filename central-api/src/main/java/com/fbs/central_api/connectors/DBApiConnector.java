@@ -113,7 +113,7 @@ public class DBApiConnector {
 
 
     public Aircraft callGetAircraftById(UUID Id){
-        String url = dbApiBaseUrl + "/aircraft/save";
+        String url = dbApiBaseUrl + "/aircraft/"+ Id.toString();
         RequestEntity request = RequestEntity.get(url).build();
         ResponseEntity<Aircraft> response = restTemplate.exchange(url, HttpMethod.GET, request, Aircraft.class);
         return response.getBody();
@@ -127,7 +127,7 @@ public class DBApiConnector {
     }
 
     public FlightSeatMapping callCreateFlightSeatMapping(FlightSeatMapping flightSeatMapping){
-        String url = dbApiBaseUrl + "/create";
+        String url = dbApiBaseUrl + "/seatmapping/create";
         RequestEntity request = RequestEntity.post(url).body(flightSeatMapping);
         ResponseEntity<FlightSeatMapping> response = restTemplate.exchange(url, HttpMethod.POST, request, FlightSeatMapping.class);
         return response.getBody();

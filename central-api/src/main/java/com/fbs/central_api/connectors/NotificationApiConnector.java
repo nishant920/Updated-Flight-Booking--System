@@ -22,14 +22,14 @@ public NotificationApiConnector(RestTemplate restTemplate){
  String notificationBaseUrl;
 
     public void notifySystemAdminForAirlineRegistration(AirlineRegistrationReqDto airlineRegistrationReqDto){
-        String url = notificationBaseUrl + "/appadmin/airline-registration";
+        String url = notificationBaseUrl + "/airline/appadmin/airline-registration";
         RequestEntity request = RequestEntity.put(url).body(airlineRegistrationReqDto);
         ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.PUT, request, Object.class);
 
     }
 
     public void notifyAcceptRequestToAirlineAdmin(Airline airline){
-        String url = notificationBaseUrl + "/admin/accept-request";
+        String url = notificationBaseUrl + "/airline/admin/accept-request";
         RequestEntity<Airline> request = RequestEntity.put(url).body(airline);
         ResponseEntity<Airline> resp = restTemplate.exchange(url, HttpMethod.PUT, request, Airline.class);
 

@@ -34,7 +34,8 @@ public class AuthConfiguration {
                         .requestMatchers(
                                 "/api/v1/central/user/login",
                                 "/api/v1/central/airline/request/accept/**",
-                                "/api/v1/central/airline/request/reject/**"
+                                "/api/v1/central/airline/request/reject/**",
+                                "/api/v1/central/airline/register"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
