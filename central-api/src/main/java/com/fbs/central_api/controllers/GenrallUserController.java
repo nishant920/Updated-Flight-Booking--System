@@ -1,7 +1,9 @@
 package com.fbs.central_api.controllers;
 
+import com.fbs.central_api.dto.CustomerRegistrationDto;
 import com.fbs.central_api.dto.LoginDto;
 import com.fbs.central_api.exceptions.InvalidCredentials;
+import com.fbs.central_api.models.AppUser;
 import com.fbs.central_api.services.UserService;
 import com.fbs.central_api.utility.AuthUtility;
 import org.springframework.http.HttpStatus;
@@ -28,5 +30,10 @@ public class GenrallUserController {
         }catch (InvalidCredentials e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
+    }
+    @PostMapping("/create")
+    public ResponseEntity create(@RequestBody CustomerRegistrationDto customerRegistrationDto){
+        AppUser appUser = userService.registerUser(customerRegistrationDto);
+        return new ResponseEntity(appUser, HttpStatus.CREATED);
     }
 }

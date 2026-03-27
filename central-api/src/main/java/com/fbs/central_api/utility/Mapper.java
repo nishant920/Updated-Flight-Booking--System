@@ -101,4 +101,17 @@ public class Mapper {
         flightSeatMapping.setUpdatedAt(LocalDateTime.now());
         return flightSeatMapping;
     }
+
+    public AppUser mapCustomerRegistrationDtoToAppUser(CustomerRegistrationDto custumerRegistrationDto, AppUser appUser){
+        appUser.setName(custumerRegistrationDto.getName());
+        appUser.setEmail(custumerRegistrationDto.getEmail());
+        appUser.setPassword(custumerRegistrationDto.getPassward());
+        appUser.setNumber((long) custumerRegistrationDto.getContactNumber());
+        appUser.setVerified(false);
+        appUser.setUserType(UserType.CUSTOMER.toString());
+        appUser.setStatus(UserStatus.ACTIVE.toString());
+        appUser.setCreatedAt(LocalDateTime.now());
+        appUser.setUpdatedAt(LocalDateTime.now());
+        return appUser;
+    }
 }

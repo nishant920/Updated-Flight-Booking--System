@@ -33,6 +33,7 @@ public class AuthConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/central/user/login",
+                                "/api/v1/central/user/create",
                                 "/api/v1/central/airline/request/accept/**",
                                 "/api/v1/central/airline/request/reject/**",
                                 "/api/v1/central/airline/register"

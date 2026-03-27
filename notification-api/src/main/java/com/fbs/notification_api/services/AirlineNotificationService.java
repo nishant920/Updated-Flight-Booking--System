@@ -1,6 +1,7 @@
 package com.fbs.notification_api.services;
 
 import com.fbs.notification_api.dto.AirlineRejectDto;
+import com.fbs.notification_api.dto.CustomerRegistrationNotificationDto;
 import com.fbs.notification_api.model.Airline;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class AirlineNotificationService {
         context.setVariable("totalFlights", airline.getTotalFlights());
         context.setVariable("employees", airline.getEmployees());
         context.setVariable("activatedAt", airline.getUpdatedAt().toString());
-        String htmlContent = templateEngine.process("accept-airline-registration-request", context);
+        String htmlContent = templateEngine.process("accept-airline-registration", context);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
        try {
@@ -61,6 +62,28 @@ public class AirlineNotificationService {
             log.error(e.getMessage());
         }
         javaMailSender.send(mimeMessage);
+    }
+
+    public void notifyCustomerRegistration(CustomerRegistrationNotificationDto customerRegistrationNotificationDto){
+        log.info("Inside notifyCustomerRegistration for email: {}", customerRegistrationNotificationDto.getEmail());
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+        String htmlContent = "<html><body><h2>Welcome to Flight Booking System</h2>"
+                + "<p>Hello " + customerRegistrationNotificationDto.getName() + ",</p>"
+                + "<p>Your registration has been completed successfully.</p>"
+                + "<p>You can now log in and explore available flights.</p>"
+                + "</body></html>";
+        try {
+            mimeMessageHelper.setTo(customerRegistrationNotificationDto.getEmail());
+            mimeMessageHelper.setSubject("Registration Successful");
+            mimeMessageHelper.setText(htmlContent, true);
+            log.info("Attempting to send registration email to: {}", customerRegistrationNotificationDto.getEmail());
+            javaMailSender.send(mimeMessage);
+            log.info("Registration email sent successfully to: {}", customerRegistrationNotificationDto.getEmail());
+        } catch (Exception e){
+            log.error("Failed to send registration email to: {}", customerRegistrationNotificationDto.getEmail(), e);
+            log.error(e.getMessage());
+        }
     }
 }
 //added some changes

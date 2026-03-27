@@ -1,6 +1,7 @@
 package com.fbs.central_api.connectors;
 
 import com.fbs.central_api.dto.AllUserDto;
+import com.fbs.central_api.dto.CustomerRegistrationDto;
 import com.fbs.central_api.models.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

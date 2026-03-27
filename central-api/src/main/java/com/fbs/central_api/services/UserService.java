@@ -1,25 +1,34 @@
 package com.fbs.central_api.services;
 
 import com.fbs.central_api.connectors.DBApiConnector;
+import com.fbs.central_api.dto.CustomerRegistrationDto;
 import com.fbs.central_api.enums.UserType;
 import com.fbs.central_api.exceptions.InvalidCredentials;
 import com.fbs.central_api.models.AppUser;
 import com.fbs.central_api.utility.AuthUtility;
+import com.fbs.central_api.utility.Mapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+
 /*
 This class is going contain all the user related logics
  */
+@Slf4j
 @Service
 public class UserService {
     DBApiConnector dbApiConnector;
     AuthUtility authUtility;
+    Mapper mapper;
+    MailService mailService;
 
-    public UserService(DBApiConnector dbApiConnector, AuthUtility authUtility){
+    public UserService(DBApiConnector dbApiConnector, AuthUtility authUtility, Mapper mapper, MailService mailService){
     this.dbApiConnector=dbApiConnector;
-    this.authUtility=authUtility;}
+    this.authUtility=authUtility;
+    this.mapper=mapper;
+    this.mailService=mailService;
+    }
 
     public List<AppUser> getAllSystemAdmins(){
         return dbApiConnector.callGetAllUsersByUserType(UserType.SYSTEM_ADMIN.toString());
@@ -76,5 +85,17 @@ public class UserService {
         String email = payload.split(":")[0];
         return this.getUserByEmail(email);
     }
-
+    public AppUser registerUser(CustomerRegistrationDto customerRegistrationDto){
+       AppUser appUser = getUserByEmail(customerRegistrationDto.getEmail());
+       if (appUser!=null){
+          throw new RuntimeException("User is already present");
+       }
+        AppUser appUser1 = new AppUser();
+        appUser1 = mapper.mapCustomerRegistrationDtoToAppUser(customerRegistrationDto,appUser1);
+        AppUser savedUser = dbApiConnector.callCreateUserEndpoint(appUser1);
+        log.info("Customer saved successfully with email: {}", savedUser.getEmail());
+        log.info("Calling mail service for customer registration email: {}", savedUser.getEmail());
+        mailService.notifyCustomerAboutRegistration(savedUser.getEmail(), savedUser.getName());
+        return savedUser;
+    }
 }

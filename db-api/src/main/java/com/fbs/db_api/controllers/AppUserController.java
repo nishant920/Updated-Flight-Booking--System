@@ -44,8 +44,9 @@ public class AppUserController {
         return new ResponseEntity(user, HttpStatus.OK);
     }
     @GetMapping("/email/{email}")
-    public ResponseEntity getUserByEmail(@PathVariable String email){
+    public ResponseEntity<AppUser> getUserByEmail(@PathVariable String email){
         AppUser user = appUserRepo.findByEmail(email);
         return new ResponseEntity(user, HttpStatus.OK);
     }
+
 }

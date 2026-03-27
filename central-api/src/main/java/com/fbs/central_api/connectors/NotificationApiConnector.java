@@ -2,7 +2,9 @@ package com.fbs.central_api.connectors;
 
 import com.fbs.central_api.dto.AirlineRegistrationReqDto;
 import com.fbs.central_api.dto.AirlineRejectDto;
+import com.fbs.central_api.dto.CustomerRegistrationNotificationDto;
 import com.fbs.central_api.models.Airline;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
+@Slf4j
 public class NotificationApiConnector {
  RestTemplate restTemplate;
 
@@ -38,6 +41,13 @@ public NotificationApiConnector(RestTemplate restTemplate){
     public void notifyRejectRequestToAirlineAdmin(AirlineRejectDto airlineRejectDto){
         String url = notificationBaseUrl + "/airline/admin/reject-request";
         RequestEntity request = RequestEntity.put(url).body(airlineRejectDto);
+        ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.PUT, request, Object.class);
+    }
+
+    public void notifyCustomerRegistration(CustomerRegistrationNotificationDto customerRegistrationNotificationDto){
+        String url = notificationBaseUrl + "/airline/customer/register";
+        RequestEntity request = RequestEntity.put(url).body(customerRegistrationNotificationDto);
+        log.info("Sending customer registration notification request to url: {}", url);
         ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.PUT, request, Object.class);
     }
 

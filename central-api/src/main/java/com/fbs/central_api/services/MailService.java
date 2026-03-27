@@ -3,6 +3,7 @@ package com.fbs.central_api.services;
 import com.fbs.central_api.connectors.NotificationApiConnector;
 import com.fbs.central_api.dto.AirlineRegistrationReqDto;
 import com.fbs.central_api.dto.AirlineRejectDto;
+import com.fbs.central_api.dto.CustomerRegistrationNotificationDto;
 import com.fbs.central_api.models.Airline;
 import com.fbs.central_api.models.AppUser;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +55,20 @@ This function is responsible for sending mail to all the system admins regarding
         try{
             notificationApiConnector.notifyRejectRequestToAirlineAdmin(airlineRejectDto);
         }catch (Exception e){
+            log.error(e.getMessage());
+        }
+    }
+
+    public void notifyCustomerAboutRegistration(String email, String name){
+
+        CustomerRegistrationNotificationDto customerRegistrationNotificationDto = new CustomerRegistrationNotificationDto();
+        customerRegistrationNotificationDto.setEmail(email);
+        customerRegistrationNotificationDto.setName(name);
+        try{
+            log.info("Calling notification-api for customer registration email: {}", email);
+            notificationApiConnector.notifyCustomerRegistration(customerRegistrationNotificationDto);
+        }catch (Exception e){
+            log.error("Failed to call notification-api for customer registration email: {}", email, e);
             log.error(e.getMessage());
         }
     }
