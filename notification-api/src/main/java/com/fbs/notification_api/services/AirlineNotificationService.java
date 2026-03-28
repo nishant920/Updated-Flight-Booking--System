@@ -43,7 +43,7 @@ public class AirlineNotificationService {
        catch (Exception e){
            log.error(e.getMessage());
        }
-
+       javaMailSender.send(mimeMessage);
 
     }
 

@@ -92,7 +92,12 @@ public class AirlineService {
                 // If it is correct -> Then fine else we will throw the exception
                 Airline airline  = this.getAirlineById(airlineId);
                 airline.setStatus(AirlineStatus.REJECTED.toString());
+                airline.setUpdatedAt(LocalDateTime.now());
                 this.updateAirlineDetails(airline);
+        AppUser airlineAdmin = airline.getAdmin();
+        airlineAdmin.setStatus(UserStatus.INACTIVE.toString());
+        airlineAdmin.setUpdatedAt(LocalDateTime.now());
+        userService.updateUserDetails(airlineAdmin);
         // We need to generate rejection reasons
         String prompt = "Generate Failure Reason for the airline details : " + airline.toString();
         GeminiApiResponse geminiApiResponse = geminiConnector.callGeminiGenAIEndpoint(prompt);
