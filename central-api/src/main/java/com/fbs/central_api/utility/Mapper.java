@@ -131,4 +131,31 @@ public class Mapper {
         appUser.setUpdatedAt(LocalDateTime.now());
         return appUser;
     }
+
+    public Booking mapBookingRequestDtoToBooking(BookingRequestDto bookingRequestDto, Flight flight, AppUser appUser){
+        Booking booking =new Booking();
+        booking.setFlight(flight);
+        booking.setBookedBy(appUser);
+        booking.setPassengerName(bookingRequestDto.getPassengerName());
+        booking.setCreatedAt(LocalDateTime.now());
+        booking.setUpdatedAt(LocalDateTime.now());
+        return booking;
+    }
+
+    public BookingResponseDto mapBookingToBookingResponseDto(Booking booking){
+        BookingResponseDto bookingResponseDto = new BookingResponseDto();
+        bookingResponseDto.setBookingId(booking.getId());
+        bookingResponseDto.setFlightId(booking.getFlight().getId());
+        bookingResponseDto.setPassengerName(booking.getPassengerName());
+        bookingResponseDto.setCustomerName(booking.getBookedBy().getName());
+        bookingResponseDto.setAirlineName(booking.getFlight().getAirline().getAirlineName());
+        bookingResponseDto.setSourceAirport(booking.getFlight().getSourceAirport());
+        bookingResponseDto.setDestinationAirport(booking.getFlight().getDestinationAirport());
+        bookingResponseDto.setFlightType(booking.getFlight().getFlightType());
+        bookingResponseDto.setDepartureTime(booking.getFlight().getDepartureTime());
+        bookingResponseDto.setArrivalTime(booking.getFlight().getArrivalTime());
+        bookingResponseDto.setBookedAt(booking.getCreatedAt());
+        bookingResponseDto.setTotalAmount(booking.getTotalAmount());
+        return bookingResponseDto;
+    }
 }

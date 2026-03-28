@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/db/flight")
@@ -34,4 +35,9 @@ public class FlightController {
         allFlightDto.setFlights(flights);
         return allFlightDto;
     }
+    @GetMapping("/{flightId}")
+    public Flight getFlightById(@PathVariable UUID flightId){
+        return flightRepository.findById(flightId).orElse(null);
+    }
+
 }

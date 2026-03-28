@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -83,5 +84,9 @@ public class FlightService{
         AllFlightSearchResponseDto allFlightSearchResponseDto = new AllFlightSearchResponseDto();
         allFlightSearchResponseDto.setFlights(flightSearchResponseDtos);
         return allFlightSearchResponseDto;
+    }
+
+    public Flight getFlightById(UUID flightId){
+        return dbApiConnector.callGetFlightByIdEndpoint(flightId);
     }
 }

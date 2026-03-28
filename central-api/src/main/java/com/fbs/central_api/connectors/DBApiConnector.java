@@ -154,4 +154,18 @@ public class DBApiConnector {
         ResponseEntity<AllFlightDto> resp = restTemplate.exchange(url, HttpMethod.GET, request, AllFlightDto.class);
         return resp.getBody();
     }
+
+    public Flight callGetFlightByIdEndpoint(UUID flightID){
+        String url = dbApiBaseUrl + "/flight/" + flightID.toString();
+        RequestEntity request = RequestEntity.get(url).build();
+        ResponseEntity<Flight> resp = restTemplate.exchange(url, HttpMethod.GET, request, Flight.class);
+        return resp.getBody();
+    }
+
+    public Booking callCreateBookingEndpoint(Booking booking){
+        String url = dbApiBaseUrl + "/booking/create";
+        RequestEntity request = RequestEntity.post(url).body(booking);
+        ResponseEntity<Booking> response = restTemplate.exchange(url, HttpMethod.POST, request, Booking.class);
+        return response.getBody();
+    }
 }

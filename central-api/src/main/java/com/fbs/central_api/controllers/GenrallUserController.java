@@ -1,11 +1,13 @@
 package com.fbs.central_api.controllers;
 
-import com.fbs.central_api.dto.AllFlightDto;
 import com.fbs.central_api.dto.AllFlightSearchResponseDto;
+import com.fbs.central_api.dto.BookingRequestDto;
+import com.fbs.central_api.dto.BookingResponseDto;
 import com.fbs.central_api.dto.CustomerRegistrationDto;
 import com.fbs.central_api.dto.LoginDto;
 import com.fbs.central_api.exceptions.InvalidCredentials;
 import com.fbs.central_api.models.AppUser;
+import com.fbs.central_api.services.BookingService;
 import com.fbs.central_api.services.FlightService;
 import com.fbs.central_api.services.UserService;
 import com.fbs.central_api.utility.AuthUtility;
@@ -20,11 +22,14 @@ public class GenrallUserController {
     UserService userService;
     AuthUtility authUtility;
     FlightService flightService;
+    BookingService bookingService;
 
-    public GenrallUserController(UserService userService, AuthUtility authUtility, FlightService flightService){
+    public GenrallUserController(UserService userService, AuthUtility authUtility, FlightService flightService,
+                                 BookingService bookingService){
         this.userService=userService;
         this.authUtility=authUtility;
         this.flightService=flightService;
+        this.bookingService=bookingService;
     }
 
     @GetMapping("/login")
@@ -48,5 +53,12 @@ public class GenrallUserController {
                                              @RequestParam String datetime){
         AllFlightSearchResponseDto allFlightSearchResponseDto = flightService.searchFlight(sourceAirport, destinationAirport, datetime);
         return allFlightSearchResponseDto;
+    }
+
+    @PostMapping("/booking/create")
+    public ResponseEntity createBooking(@RequestBody BookingRequestDto bookingRequestDto,
+                                        @RequestHeader String Authorization){
+        BookingResponseDto bookingResponseDto = bookingService.createBooking(bookingRequestDto, Authorization);
+        return new ResponseEntity(bookingResponseDto, HttpStatus.CREATED);
     }
 }
