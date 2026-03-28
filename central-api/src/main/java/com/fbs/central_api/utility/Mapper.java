@@ -102,6 +102,23 @@ public class Mapper {
         return flightSeatMapping;
     }
 
+    public FlightSearchResponseDto mapFlightToSearchResponseDto(Flight flight){
+        FlightSearchResponseDto flightSearchResponseDto = new FlightSearchResponseDto();
+        flightSearchResponseDto.setFlightId(flight.getId());
+        flightSearchResponseDto.setAirlineName(flight.getAirline().getAirlineName());
+        flightSearchResponseDto.setAircraftModelName(flight.getAircraft().getModelName());
+        flightSearchResponseDto.setSourceAirport(flight.getSourceAirport());
+        flightSearchResponseDto.setDestinationAirport(flight.getDestinationAirport());
+        flightSearchResponseDto.setFlightType(flight.getFlightType());
+        flightSearchResponseDto.setTotalTime(flight.getTotalTime());
+        flightSearchResponseDto.setBoardingTime(flight.getBoardingTime());
+        flightSearchResponseDto.setBoardingMinutes(flight.getBoardingMinutes());
+        flightSearchResponseDto.setDepartureTime(flight.getDepartureTime());
+        flightSearchResponseDto.setArrivalTime(flight.getArrivalTime());
+        flightSearchResponseDto.setConnecting(flight.isConnecting());
+        return flightSearchResponseDto;
+    }
+
     public AppUser mapCustomerRegistrationDtoToAppUser(CustomerRegistrationDto custumerRegistrationDto, AppUser appUser){
         appUser.setName(custumerRegistrationDto.getName());
         appUser.setEmail(custumerRegistrationDto.getEmail());

@@ -36,7 +36,8 @@ public class AuthConfiguration {
                                 "/api/v1/central/user/create",
                                 "/api/v1/central/airline/request/accept/**",
                                 "/api/v1/central/airline/request/reject/**",
-                                "/api/v1/central/airline/register"
+                                "/api/v1/central/airline/register",
+                                "/api/v1/central/user/flight/search"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

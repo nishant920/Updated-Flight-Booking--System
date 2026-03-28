@@ -1,9 +1,12 @@
 package com.fbs.central_api.controllers;
 
+import com.fbs.central_api.dto.AllFlightDto;
+import com.fbs.central_api.dto.AllFlightSearchResponseDto;
 import com.fbs.central_api.dto.CustomerRegistrationDto;
 import com.fbs.central_api.dto.LoginDto;
 import com.fbs.central_api.exceptions.InvalidCredentials;
 import com.fbs.central_api.models.AppUser;
+import com.fbs.central_api.services.FlightService;
 import com.fbs.central_api.services.UserService;
 import com.fbs.central_api.utility.AuthUtility;
 import org.springframework.http.HttpStatus;
@@ -16,10 +19,12 @@ public class GenrallUserController {
 
     UserService userService;
     AuthUtility authUtility;
+    FlightService flightService;
 
-    public GenrallUserController(UserService userService, AuthUtility authUtility){
+    public GenrallUserController(UserService userService, AuthUtility authUtility, FlightService flightService){
         this.userService=userService;
         this.authUtility=authUtility;
+        this.flightService=flightService;
     }
 
     @GetMapping("/login")
@@ -35,5 +40,13 @@ public class GenrallUserController {
     public ResponseEntity create(@RequestBody CustomerRegistrationDto customerRegistrationDto){
         AppUser appUser = userService.registerUser(customerRegistrationDto);
         return new ResponseEntity(appUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/flight/search")
+    public AllFlightSearchResponseDto search(@RequestParam String sourceAirport,
+                                             @RequestParam String destinationAirport,
+                                             @RequestParam String datetime){
+        AllFlightSearchResponseDto allFlightSearchResponseDto = flightService.searchFlight(sourceAirport, destinationAirport, datetime);
+        return allFlightSearchResponseDto;
     }
 }

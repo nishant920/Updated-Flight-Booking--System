@@ -1,5 +1,6 @@
 package com.fbs.central_api.connectors;
 
+import com.fbs.central_api.dto.AllFlightDto;
 import com.fbs.central_api.dto.AllUserDto;
 import com.fbs.central_api.dto.CustomerRegistrationDto;
 import com.fbs.central_api.models.*;
@@ -140,9 +141,9 @@ public class DBApiConnector {
         return response.getBody();
     }
 
-    public Object callSearchFlightEndpoint(String sourceAirport,
-                                           String destinationAirport,
-                                           String dateTime){
+    public AllFlightDto callSearchFlightEndpoint(String sourceAirport,
+                                                 String destinationAirport,
+                                                 String dateTime){
 
         sourceAirport = sourceAirport.replace( ' ', '+');
         destinationAirport = destinationAirport.replace(' ','+');
@@ -150,7 +151,7 @@ public class DBApiConnector {
         String url = dbApiBaseUrl + "/flight/search?" + "sourceAirport="+sourceAirport+"&" + "destinationAirport=" + destinationAirport +"&" + "dateTime=" + dateTime;
         log.info(url);
         RequestEntity request = RequestEntity.get(url).build();
-        ResponseEntity<Object> resp = restTemplate.exchange(url, HttpMethod.GET, request, Object.class);
+        ResponseEntity<AllFlightDto> resp = restTemplate.exchange(url, HttpMethod.GET, request, AllFlightDto.class);
         return resp.getBody();
     }
 }

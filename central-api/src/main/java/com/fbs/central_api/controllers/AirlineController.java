@@ -3,6 +3,7 @@ package com.fbs.central_api.controllers;
 
 import com.fbs.central_api.dto.AircraftRegistrationDto;
 import com.fbs.central_api.dto.AirlineRegistrationDto;
+import com.fbs.central_api.dto.AllFlightDto;
 import com.fbs.central_api.dto.FlightDetailsDto;
 import com.fbs.central_api.models.Aircraft;
 import com.fbs.central_api.models.Airline;

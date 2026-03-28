@@ -1,7 +1,10 @@
 package com.fbs.central_api.services;
 
 import com.fbs.central_api.connectors.DBApiConnector;
+import com.fbs.central_api.dto.AllFlightDto;
+import com.fbs.central_api.dto.AllFlightSearchResponseDto;
 import com.fbs.central_api.dto.FlightDetailsDto;
+import com.fbs.central_api.dto.FlightSearchResponseDto;
 import com.fbs.central_api.dto.SeatMappingDto;
 import com.fbs.central_api.dto.SubFlightDto;
 import com.fbs.central_api.enums.UserType;
@@ -12,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -69,8 +73,15 @@ public class FlightService{
         return flight;
     }
 
-    public Object searchFlight(String sourceAirport, String destinationAirport,
-                               String localDateTime){
-        return dbApiConnector.callSearchFlightEndpoint(sourceAirport, destinationAirport, localDateTime.toString());
+    public AllFlightSearchResponseDto searchFlight(String sourceAirport, String destinationAirport,
+                                                   String localDateTime){
+        AllFlightDto allFlightDto = dbApiConnector.callSearchFlightEndpoint(sourceAirport, destinationAirport, localDateTime);
+        List<FlightSearchResponseDto> flightSearchResponseDtos = new ArrayList<>();
+        for(Flight flight : allFlightDto.getFlights()){
+            flightSearchResponseDtos.add(mapper.mapFlightToSearchResponseDto(flight));
+        }
+        AllFlightSearchResponseDto allFlightSearchResponseDto = new AllFlightSearchResponseDto();
+        allFlightSearchResponseDto.setFlights(flightSearchResponseDtos);
+        return allFlightSearchResponseDto;
     }
 }
