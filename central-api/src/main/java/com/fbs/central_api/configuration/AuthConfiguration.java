@@ -32,6 +32,8 @@ public class AuthConfiguration {
                 .csrf(csrf -> csrf.disable()) // updated syntax
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/",
+                                "/health",
                                 "/api/v1/central/user/login",
                                 "/api/v1/central/user/create",
                                 "/api/v1/central/airline/request/accept/**",
