@@ -8,6 +8,9 @@ import lombok.ToString;
 
 import java.util.List;
 
+/**
+ * Public response wrapper for customer-safe flight search results.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

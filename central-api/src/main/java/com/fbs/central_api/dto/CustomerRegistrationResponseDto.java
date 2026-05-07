@@ -2,17 +2,18 @@ package com.fbs.central_api.dto;
 
 import lombok.*;
 
-/**
- * Request payload used when a customer creates an account.
- */
+import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CustomerRegistrationDto {
+public class CustomerRegistrationResponseDto {
+    UUID id;
     String name;
     String email;
-    String password;
-    Long contactNumber;
+    Long number;
+    String userType;
+    String status;
 }

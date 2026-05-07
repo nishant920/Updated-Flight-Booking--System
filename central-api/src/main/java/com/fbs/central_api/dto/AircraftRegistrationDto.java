@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+/**
+ * Request payload used by an airline admin to register an aircraft.
+ */
 @Data
 public class AircraftRegistrationDto {
     int modelNumber;

@@ -25,8 +25,9 @@ public class AppUserController {
 
     @PostMapping("/create")
     public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
-        // log.info("");
+
         AppUser appUser1 = appUserRepo.save(appUser);
+        log.info("User detail : " + appUser1.getName() + appUser1.getName());
         return new ResponseEntity<>(appUser1, HttpStatus.CREATED);
     }
 

@@ -122,7 +122,7 @@ public class Mapper {
     public AppUser mapCustomerRegistrationDtoToAppUser(CustomerRegistrationDto custumerRegistrationDto, AppUser appUser){
         appUser.setName(custumerRegistrationDto.getName());
         appUser.setEmail(custumerRegistrationDto.getEmail());
-        appUser.setPassword(custumerRegistrationDto.getPassward());
+        appUser.setPassword(custumerRegistrationDto.getPassword());
         appUser.setNumber((long) custumerRegistrationDto.getContactNumber());
         appUser.setVerified(false);
         appUser.setUserType(UserType.CUSTOMER.toString());
@@ -130,6 +130,17 @@ public class Mapper {
         appUser.setCreatedAt(LocalDateTime.now());
         appUser.setUpdatedAt(LocalDateTime.now());
         return appUser;
+    }
+
+    public CustomerRegistrationResponseDto mapCustomerToResponceDto(AppUser appUser){
+        CustomerRegistrationResponseDto customerRegistrationResponseDto = new CustomerRegistrationResponseDto();
+        customerRegistrationResponseDto.setId(appUser.getId());
+        customerRegistrationResponseDto.setName(appUser.getName());
+        customerRegistrationResponseDto.setEmail(appUser.getEmail());
+        customerRegistrationResponseDto.setNumber(appUser.getNumber());
+        customerRegistrationResponseDto.setStatus(appUser.getStatus());
+        customerRegistrationResponseDto.setUserType(appUser.getUserType());
+        return customerRegistrationResponseDto;
     }
 
     public Booking mapBookingRequestDtoToBooking(BookingRequestDto bookingRequestDto, Flight flight, AppUser appUser){

@@ -4,6 +4,9 @@ import com.fbs.central_api.models.Airline;
 import com.fbs.central_api.models.AppUser;
 import lombok.*;
 
+/**
+ * Notification payload sent to system admins for airline registration review.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

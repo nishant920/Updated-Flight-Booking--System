@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Notification payload used to send customer registration confirmation.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

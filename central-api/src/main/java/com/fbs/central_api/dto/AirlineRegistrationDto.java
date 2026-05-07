@@ -3,6 +3,9 @@ package com.fbs.central_api.dto;
 
 import lombok.*;
 
+/**
+ * Request payload used when a new airline applies for registration.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

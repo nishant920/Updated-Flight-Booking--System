@@ -1,11 +1,6 @@
 package com.fbs.central_api.controllers;
 
-import com.fbs.central_api.dto.AllFlightSearchResponseDto;
-import com.fbs.central_api.dto.BookingRequestDto;
-import com.fbs.central_api.dto.BookingResponseDto;
-import com.fbs.central_api.dto.CustomerRegistrationDto;
-import com.fbs.central_api.dto.LoginDto;
-import com.fbs.central_api.exceptions.InvalidCredentials;
+import com.fbs.central_api.dto.*;
 import com.fbs.central_api.models.AppUser;
 import com.fbs.central_api.services.BookingService;
 import com.fbs.central_api.services.FlightService;
@@ -32,18 +27,14 @@ public class GenrallUserController {
         this.bookingService=bookingService;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDto loginDto){
-        try{
-            String token = userService.isValidCredentials(loginDto.getEmail(), loginDto.getPassword());
-            return new ResponseEntity<>(token, HttpStatus.OK);
-        }catch (InvalidCredentials e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-        }
+        String token = userService.isValidCredentials(loginDto.getEmail(), loginDto.getPassword());
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CustomerRegistrationDto customerRegistrationDto){
-        AppUser appUser = userService.registerUser(customerRegistrationDto);
+        CustomerRegistrationResponseDto appUser = userService.registerUser(customerRegistrationDto);
         return new ResponseEntity(appUser, HttpStatus.CREATED);
     }
 

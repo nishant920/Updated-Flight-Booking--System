@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * Request payload describing a seat class, price range, and window-seat details.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

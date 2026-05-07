@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Request payload used by an airline admin to create a flight and related seat mappings.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

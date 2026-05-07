@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.util.UUID;
 
+/**
+ * Request payload used by a customer to create a flight booking.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

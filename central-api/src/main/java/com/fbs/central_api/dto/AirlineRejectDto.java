@@ -2,6 +2,9 @@ package com.fbs.central_api.dto;
 
 import lombok.*;
 
+/**
+ * Notification payload used to tell an airline admin why registration was rejected.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

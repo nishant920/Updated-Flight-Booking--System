@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Internal wrapper for raw flight records returned from db-api.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

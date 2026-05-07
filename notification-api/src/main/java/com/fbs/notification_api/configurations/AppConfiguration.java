@@ -12,7 +12,7 @@ import java.util.Properties;
 public class AppConfiguration {
     @Bean
     public HashMap<Integer, Integer> generateHashMap(){
-        return new  HashMap<>();
+        return new HashMap<>();
     }
     @Bean
     public JavaMailSender generateJavaMailSender(){
@@ -21,7 +21,7 @@ public class AppConfiguration {
         javaMailSender.setHost("smtp.gmail.com"); // For now email which i am using belongs to gmail so, the host will be smtp.gmail.com
         javaMailSender.setPort(587); // genrally to send mail from our computer we require some port number so, the port number which we will use is 587
         javaMailSender.setUsername("nish604768@gmail.com");// We will be sending email so, by what email our spring application will send mail to the users
-        javaMailSender.setPassword("lwlyozgshezdnyoh"); // Password of the email.... It is app password, not actual password
+        javaMailSender.setPassword("aaifemvrilgdhrgs"); // Password of the email.... It is app password, not actual password
         Properties props = javaMailSender.getJavaMailProperties();
         props.put("mail.smtp.auth", "true"); // Our springboot api will connect gmail to send email via password so, mail.smtp.auth is true
         props.put("mail.smtp.starttls.enable", "true");// This property we are setting for secure connection

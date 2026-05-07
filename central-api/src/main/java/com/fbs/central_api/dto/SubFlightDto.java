@@ -5,6 +5,9 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Request payload describing one leg of a connecting flight.
+ */
 @Data
 public class SubFlightDto {
     int priority;

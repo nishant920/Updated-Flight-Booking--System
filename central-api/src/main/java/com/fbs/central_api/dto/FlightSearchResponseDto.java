@@ -9,6 +9,9 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Public flight result returned to customers during flight search.
+ */
 @Getter
 @Setter
 @AllArgsConstructor

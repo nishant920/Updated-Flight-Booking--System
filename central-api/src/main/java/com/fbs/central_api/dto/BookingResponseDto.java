@@ -9,6 +9,9 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Public response returned after a booking is created, without exposing nested user data.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
