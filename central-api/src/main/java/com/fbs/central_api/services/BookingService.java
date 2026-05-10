@@ -3,6 +3,8 @@ package com.fbs.central_api.services;
 import com.fbs.central_api.connectors.DBApiConnector;
 import com.fbs.central_api.dto.BookingRequestDto;
 import com.fbs.central_api.dto.BookingResponseDto;
+import com.fbs.central_api.enums.UserType;
+import com.fbs.central_api.exceptions.UnAuthorizedException;
 import com.fbs.central_api.models.AppUser;
 import com.fbs.central_api.models.Booking;
 import com.fbs.central_api.models.Flight;
@@ -33,6 +35,9 @@ public class BookingService {
         String token = authorization.substring(7);
 
         AppUser customer = userService.getUserFromToken(token);
+        if(!UserType.CUSTOMER.equals(customer.getUserType())){
+            throw new UnAuthorizedException("Only customers are allowed to book flights");
+        }
 
         Flight flight = flightService.getFlightById(bookingRequestDto.getFlightId());
         Booking booking = mapper.mapBookingRequestDtoToBooking(bookingRequestDto, flight, customer);
