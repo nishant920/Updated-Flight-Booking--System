@@ -3,6 +3,8 @@ package com.fbs.central_api.services;
 import com.fbs.central_api.connectors.DBApiConnector;
 import com.fbs.central_api.dto.CustomerRegistrationDto;
 import com.fbs.central_api.dto.CustomerRegistrationResponseDto;
+import com.fbs.central_api.dto.LoginDto;
+import com.fbs.central_api.dto.LoginResponseDto;
 import com.fbs.central_api.enums.UserType;
 import com.fbs.central_api.exceptions.InvalidCredentials;
 import com.fbs.central_api.models.AppUser;
@@ -102,5 +104,11 @@ public class UserService {
         log.info("Calling mail service for customer registration email: {}", savedUser.getEmail());
         mailService.notifyCustomerAboutRegistration(savedUser.getEmail(), savedUser.getName());
         return mapper.mapCustomerToResponceDto(savedUser);
+    }
+
+    public LoginResponseDto login(LoginDto loginDto){
+        String token = isValidCredentials(loginDto.getEmail(), loginDto.getPassword());
+        AppUser appUser = getUserByEmail(loginDto.getEmail());
+        return mapper.mapAppUserToLoginResponseDto(appUser,token);
     }
 }

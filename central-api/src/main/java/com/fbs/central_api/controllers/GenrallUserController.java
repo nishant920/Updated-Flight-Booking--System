@@ -30,12 +30,13 @@ public class GenrallUserController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDto loginDto){
         String token = userService.isValidCredentials(loginDto.getEmail(), loginDto.getPassword());
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        LoginResponseDto responseDto = userService.login(loginDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CustomerRegistrationDto customerRegistrationDto){
-        CustomerRegistrationResponseDto appUser = userService.registerUser(customerRegistrationDto);
-        return new ResponseEntity(appUser, HttpStatus.CREATED);
+        CustomerRegistrationResponseDto responseUser = userService.registerUser(customerRegistrationDto);
+        return new ResponseEntity(responseUser, HttpStatus.CREATED);
     }
 
     @GetMapping("/flight/search")

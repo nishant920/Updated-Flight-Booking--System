@@ -119,6 +119,7 @@ public class Mapper {
         return flightSearchResponseDto;
     }
 
+
     public AppUser mapCustomerRegistrationDtoToAppUser(CustomerRegistrationDto custumerRegistrationDto, AppUser appUser){
         appUser.setName(custumerRegistrationDto.getName());
         appUser.setEmail(custumerRegistrationDto.getEmail());
@@ -142,7 +143,14 @@ public class Mapper {
         customerRegistrationResponseDto.setUserType(appUser.getUserType());
         return customerRegistrationResponseDto;
     }
-
+    public LoginResponseDto mapAppUserToLoginResponseDto(AppUser appUser, String token){
+        LoginResponseDto loginResponseDto = new LoginResponseDto();
+        loginResponseDto.setToken(token);
+        loginResponseDto.setName(appUser.getName());
+        loginResponseDto.setEmail(appUser.getEmail());
+        loginResponseDto.setMessage("Login successful");
+        return loginResponseDto;
+    }
     public Booking mapBookingRequestDtoToBooking(BookingRequestDto bookingRequestDto, Flight flight, AppUser appUser){
         Booking booking =new Booking();
         booking.setFlight(flight);
